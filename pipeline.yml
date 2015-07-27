@@ -8,7 +8,7 @@ resources:
 - name: cf-warden
   type: cf
   source:
-    api: http://10.244.0.34.xip.io
+    api: http://api.10.244.0.34.xip.io
     username: admin
     password: admin
     organization: sample
