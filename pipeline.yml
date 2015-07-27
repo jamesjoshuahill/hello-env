@@ -23,7 +23,7 @@ jobs:
   - task: unit
     config:
       platform: linux
-      image: "docker:///frolvlad/alpine-ruby"
+      image: docker:///cloudcredo/ccp
       inputs:
       - name: cf-hello-env
         path: .
