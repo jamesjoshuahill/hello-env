@@ -28,7 +28,7 @@ jobs:
       - name: cf-hello-env
         path: .
       run:
-        path: ./scripts/ci/test.sh
+        path: ./test.sh
   - put: cf-warden
     params:
       manifest: cf-hello-env/manifest.yml
