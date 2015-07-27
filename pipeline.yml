@@ -30,14 +30,15 @@ jobs:
         path: .
       run:
         path: ./test.sh
-  serial_groups:
-  - deploy-cf-hello-env-unit
 
 - name: deploy-cf-hello-env-unit
   plan:
   - get: cf-hello-env
+    trigger: true
     passed:
     - cf-hello-env-unit
   - put: cf-warden
     params:
       manifest: cf-hello-env/manifest.yml
+  serial_groups:
+  - deploy-cf-hello-env-unit
