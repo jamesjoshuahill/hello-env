@@ -1,20 +1,34 @@
 resources:
-  - name: cf-hello-env
-    type: git
-    source:
-      uri: git@github.com:jamesjoshuahill/hello-env.git
-      branch: master
+- name: cf-hello-env
+  type: git
+  source:
+    uri: https://github.com/jamesjoshuahill/hello-env.git
+    branch: master
 
-name: cf-hello-env-unit
-plan:
-- get: cf-hello-env
-  trigger: true
-- task: cf-hello-env
-  config:
-    platform: linux
-    image: "docker:///frolvlad/alpine-ruby"
-    inputs:
-    - name: ccp-api
-      path: .
-    run:
-      path: ./scripts/ci/test.sh
+- name: cf-warden
+  type: cf
+  source:
+    api: http://10.244.0.34.xip.io
+    username: admin
+    password: admin
+    organization: sample
+    space: sample
+    skip_cert_check: true
+
+jobs:
+- name: cf-hello-env-unit
+  plan:
+  - get: cf-hello-env
+    trigger: true
+  - task: unit
+    config:
+      platform: linux
+      image: "docker:///frolvlad/alpine-ruby"
+      inputs:
+      - name: cf-hello-env
+        path: .
+      run:
+        path: ./scripts/ci/test.sh
+  - put: cf-warden
+    params:
+      manifest: cf-hello-env/manifest.yml
