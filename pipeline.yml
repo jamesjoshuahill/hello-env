@@ -1,0 +1,20 @@
+resources:
+  - name: cf-hello-env
+    type: git
+    source:
+      uri: git@github.com:jamesjoshuahill/hello-env.git
+      branch: master
+
+name: cf-hello-env-unit
+plan:
+- get: cf-hello-env
+  trigger: true
+- task: cf-hello-env
+  config:
+    platform: linux
+    image: "docker:///frolvlad/alpine-ruby"
+    inputs:
+    - name: ccp-api
+      path: .
+    run:
+      path: ./scripts/ci/test.sh
