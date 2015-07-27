@@ -1,4 +1,4 @@
 ---
 applications:
 - name: hello-env
-  buildpack: ruby_buildpack
+  path: "./"
