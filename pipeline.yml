@@ -30,6 +30,12 @@ jobs:
         path: .
       run:
         path: ./test.sh
+
+- name: deploy-cf-hello-env-unit
+  plan:
+  - get: cf-hello-env
+    passed:
+    - cf-hello-env-unit
   - put: cf-warden
     params:
       manifest: cf-hello-env/manifest.yml
