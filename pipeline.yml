@@ -22,14 +22,7 @@ jobs:
     trigger: true
   - task: unit
     privileged: true
-    config:
-      platform: linux
-      image: docker:///cloudcredo/ccp
-      inputs:
-      - name: cf-hello-env
-        path: .
-      run:
-        path: ./test.sh
+    file: ./unit.yml
 
 - name: deploy-cf-hello-env-unit
   plan:
