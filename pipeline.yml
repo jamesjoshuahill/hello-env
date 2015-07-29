@@ -22,7 +22,7 @@ jobs:
     trigger: true
   - task: unit
     privileged: true
-    file: ./unit.yml
+    file: cf-hello-env/unit.yml
 
 - name: deploy-cf-hello-env-unit
   plan:
